@@ -1,0 +1,2 @@
+# 生成HTML按字节检查，所有平台统一文本换行。
+* text=auto eol=lf

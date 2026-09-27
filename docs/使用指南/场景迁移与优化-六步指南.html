@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="source-sha256" content="03fed3dd7eaeb3b9eb3a870c0765f07e06b3cf3d29f2144b09d5f3900fc7b1d4">
+<title>场景迁移与优化：六步指南</title>
+<style>
+:root{--paper:#f7f6f1;--ink:#243b30;--muted:#58685d;--line:#d9dfd4;--accent:#875518;--gold:#fbf1dd}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 "Microsoft YaHei","PingFang SC",sans-serif}
+button,textarea{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{cursor:default;opacity:.4}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:3px solid #a57937;outline-offset:4px}
+.wrap{max-width:1020px;margin:auto;padding:0 28px}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 0;color:var(--muted);font-size:13px}
+header strong{color:var(--ink);letter-spacing:1px;font-size:14px}
+h1{font-family:"Noto Serif CJK SC","SimSun",serif;font-size:36px;font-weight:600;line-height:1.4;margin:20px 0 6px}
+.subtitle{color:var(--muted);margin:0 0 28px}
+.route{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:26px}
+.route button{background:transparent;text-align:left;border:0;border-bottom:2px solid var(--line);border-radius:0;padding:12px 9px;color:var(--muted);font-size:13px;min-height:68px}
+.route span{display:block;font-family:Georgia,serif;font-size:14px}
+.route button[aria-current="step"]{border-color:var(--ink);background:#eaf0e5;color:var(--ink)}
+.route button:hover:not(:disabled){background:#eef1e9}
+.step{background:#fffefa;border:1px solid var(--line);border-radius:12px;padding:28px 40px 22px}
+.step-top{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
+.gate-tag{background:var(--gold);color:var(--accent);border-radius:5px;padding:2px 10px}
+h2{font-size:28px;line-height:1.5;font-weight:600;margin:8px 0 3px}h2:focus{outline:none}
+.lead{font-size:14px;color:var(--muted);margin:0 0 22px}
+.user-tasks ul{list-style:none;padding:0;margin:0 0 26px;max-width:790px}
+.user-tasks li{position:relative;padding-left:23px;margin:12px 0}
+.user-tasks li:before{content:"•";position:absolute;left:0;color:#77916c}
+.gate-step .user-tasks li:before{content:"□";color:var(--accent)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.actions button{border:1px solid var(--ink);background:var(--ink);color:#fffefa;border-radius:6px;padding:10px 20px;min-height:44px;font-size:14px;font-weight:600}
+.actions button:hover:not(:disabled){background:#405b49}
+.actions .secondary{background:transparent;color:var(--ink);border-color:#bcc8b8}
+.actions .secondary:hover:not(:disabled){background:#eef1e9}
+.feedback{font-size:13px;color:var(--accent);margin:10px 0}
+.feedback:empty{display:none}
+.disclosure{border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+summary{cursor:pointer;padding:13px 0;touch-action:manipulation}
+.disclosure>div{padding:0 0 15px;font-size:14px}.disclosure h3{font-size:14px;color:var(--ink);margin:16px 0 5px}
+.disclosure p{margin:8px 0}.disclosure ul{padding-left:20px}.disclosure li{margin:7px 0}
+blockquote{margin:6px 0;line-height:1.9}
+.copy-fallback{margin:14px 0}.copy-fallback label{font-size:13px;display:block}
+textarea{width:100%;padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:6px;color:var(--ink);resize:vertical}
+.step-controls{display:flex;align-items:center;justify-content:space-between;padding:20px 4px;gap:15px}
+.step-controls button{border:0;background:transparent;color:var(--ink);padding:10px 12px;min-height:44px;font-size:14px}
+.step-controls button:hover:not(:disabled){background:#eaf0e5;border-radius:6px}
+#view-position{font-size:12px;color:var(--muted)}
+.supplement{margin:7px 0 25px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.supplement>.supplement-body{padding:0 8px 10px}
+.extra{border-top:1px solid var(--line)}.extra>summary{display:flex;justify-content:space-between}
+.extra div{font-size:14px}.extra h3{font-size:14px;color:var(--ink)}
+footer{padding:0 0 28px;display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted)}
+[hidden]{display:none!important}
+@media(max-width:650px){
+.wrap{padding:0 18px}header{padding:18px 0;align-items:flex-start}header a{font-size:12px}
+h1{font-size:28px;margin-top:12px}.subtitle{font-size:14px;margin-bottom:18px}
+.route{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.route button{font-size:12px;padding:9px 7px;min-height:60px}
+.step{padding:22px 20px 16px}h2{font-size:24px}.user-tasks li{font-size:15px}
+.actions button{padding:10px 14px}.step-controls{padding:12px 0}
+footer{flex-direction:column;gap:5px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{.route,.actions,.step-controls,.copy-fallback,header a{display:none!important}.step[hidden]{display:block!important}.step{break-inside:avoid;margin:15px 0}.disclosure>div,.supplement-body,.extra>div{display:block!important}body{background:white}.wrap{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><strong>场景迁移 · 美术协作指南</strong><a href="场景迁移与优化-六步指南.md" download>给 Agent 的完整 Markdown ↗</a></header>
+<main>
+<h1>一次只看一步。</h1>
+<p class="subtitle">先在 Blender 确认效果，再到 Unity 测试。</p>
+<nav class="route" aria-label="选择要查看的步骤"><button type="button" data-go="1" aria-controls="step-1" disabled><span>01</span>准备素材</button>
+<button type="button" data-go="2" aria-controls="step-2" disabled><span>02</span>检查与备份</button>
+<button type="button" data-go="3" aria-controls="step-3" disabled><span>03</span>Blender迁移优化</button>
+<button type="button" data-go="4" aria-controls="step-4" disabled><span>04</span>确认Blender效果</button>
+<button type="button" data-go="5" aria-controls="step-5" disabled><span>05</span>Unity导入测试</button>
+<button type="button" data-go="6" aria-controls="step-6" disabled><span>06</span>确认与交付</button></nav>
+<noscript><style>.step[hidden]{display:block!important}.route,.step-controls{display:none}</style><p>脚本未启用，以下按顺序显示六步。展开话术后可手动选中复制。</p></noscript>
+<div id="steps"><section class="step" id="step-1" aria-labelledby="heading-1" >
+<div class="step-top"><span>第 01 步 / 06</span></div>
+<h2 id="heading-1" tabindex="-1">准备素材</h2><p class="lead">一次交齐，减少来回沟通。</p>
+<div class="user-tasks"><ul>
+<li>提供 .max 和完整贴图文件夹，有原效果图也一起提供。</li>
+<li>说明最终用于电脑、手机还是头显，以及是否需要近看或进入内部。</li>
+<li>列出不能改变的细节，并提供目标 Unity 工程名称和位置；不清楚的内容请 Agent 检查。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-1" disabled>复制给 Agent</button></div>
+<p class="feedback" id="feedback-1" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-1">请手动复制下方已选文字</label><textarea id="fallback-1" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-1">请阅读《场景迁移与优化-六步指南》和本项目 AGENTS.md。我提供了 .max、配套素材和用途要求。请先检查资料，列出缺少的内容并给我处理方案。不要覆盖原文件、安装软件或提前连接 Unity。请用美术人员能理解的话说明问题。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>列出收到的素材、还缺什么，以及需要您确认的处理范围。</li>
+<li>了解目标设备与效果要求，此时不连接 Unity。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>输入、目标和重要细节明确；资料缺失已列出，未把猜测当成事实。</li>
+</ul><h3>不通过怎么办</h3><p>补齐缺少的素材，或明确接受某项替代方案；没有原效果图时，不宣称与原场景完全一致。</p></div></details>
+</section>
+<section class="step" id="step-2" aria-labelledby="heading-2" hidden>
+<div class="step-top"><span>第 02 步 / 06</span></div>
+<h2 id="heading-2" tabindex="-1">检查与备份</h2><p class="lead">先保护原件，再开始处理。</p>
+<div class="user-tasks"><ul>
+<li>确认 Agent 提出的方案和允许调整的范围。</li>
+<li>缺少软件、插件或使用权限时，按说明协助准备；不需要自己写代码。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-2" disabled>复制给 Agent</button></div>
+<p class="feedback" id="feedback-2" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-2">请手动复制下方已选文字</label><textarea id="fallback-2" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-2">我同意你刚才列出的方案和处理范围。请保留原件、建立独立副本，只执行已确认的 Blender 迁移与优化；出现新的缺失项或需要改变外观时先告诉我。不要连接 Unity。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>检查软件与素材能否安全读取，在独立工作副本中处理，原件不覆盖。</li>
+<li>列清缺贴图、打不开的材质和异常模型，未获确认不自行替换。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>原件已保留，副本可用；缺失项已解决或具体处理方式获您同意。</li>
+</ul><h3>不通过怎么办</h3><p>暂停并说明缺少什么；不关闭安全保护、不擅自购买或安装、不反复重跑失败操作。</p></div></details>
+</section>
+<section class="step" id="step-3" aria-labelledby="heading-3" hidden>
+<div class="step-top"><span>第 03 步 / 06</span></div>
+<h2 id="heading-3" tabindex="-1">Blender迁移优化</h2><p class="lead">先还原，再减负，始终保留对照。</p>
+<div class="user-tasks"><ul>
+<li>查看原效果与迁移结果对比，指出重要人物、文字和近景细节。</li>
+<li>若希望改变颜色或整体风格，另行明确提出；默认保持原外观。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-3" disabled>复制给 Agent</button></div>
+<p class="feedback" id="feedback-3" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-3">请手动复制下方已选文字</label><textarea id="fallback-3" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-3">请先核对未优化版本，再进行材质优化、减面和名称整理。保留人物、文字和重要轮廓，不改变整体风格，不覆盖母版。请提供同角度的全景、内部和重要近景对比，单独标出已知差异。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>先保留未优化的 Blender 版本，修复迁移中的缺失、错位和材质问题。</li>
+<li>再在新版本中优化材质、减少不必要的面数、处理贴图并整理名称。</li>
+<li>先做小范围对比，再扩大处理；不对全场统一减面，不随意合并所有零件。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>提供未优化版本、优化版本，以及同角度的全景、内部和重要近景对比图。</li>
+</ul><h3>不通过怎么办</h3><p>返回保留版本调整。文件变小不等于画面更好，也不等于目标设备运行更流畅。</p></div></details>
+</section>
+<section class="step gate-step" id="step-4" aria-labelledby="heading-4" hidden>
+<div class="step-top"><span>第 04 步 / 06</span><span class="gate-tag">看图确认</span></div>
+<h2 id="heading-4" tabindex="-1">确认Blender效果</h2><p class="lead">第一个确认点：看清楚，再进入 Unity。</p>
+<div class="user-tasks"><ul>
+<li>看模型有无缺失、错位和变形；看贴图是否清晰，玻璃和金属是否正常。</li>
+<li>确认内部、背面及实际观看距离下的效果，指出不接受的差异。</li>
+<li>明确确认某个版本，并说明是否允许进入指定 Unity 工程测试。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-4" disabled>复制通过回复</button><button type="button" class="secondary" data-copy="changes-4" disabled>复制修改意见</button></div>
+<p class="feedback" id="feedback-4" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-4">请手动复制下方已选文字</label><textarea id="fallback-4" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-4">我确认 Blender 的【版本名称】效果通过，接受已列明的差异。请先完成导出与重新打开检查，正常后仅通过 Unity Skills 连接【工程名称和位置】，导入独立目录并新建测试场景。不要覆盖旧模型或修改正式场景。括号内容由我确认后填写。</blockquote><h3>修改意见</h3><blockquote id="changes-4">Blender 的【版本名称】暂不通过。问题在【截图和位置】，我希望【具体效果】。请在副本中调整并重新提供同角度对比，不进入 Unity。请先等我补齐括号内容，不要自行猜测问题或认可版本。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>记录您认可的版本和截图，保存后重新打开 Blender 工程核对。</li>
+<li>导出目标模型，再在空场景重新打开检查；外观有变化时重新请您确认。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>指定 Blender 版本获您确认，Unity 阶段获授权，导出文件重新打开检查正常。三个条件缺一不可。</li>
+</ul><h3>不通过怎么办</h3><p>截图圈出问题，返回第03步。仅说画面通过，不等于允许连接 Unity；切换网页步骤也不是授权。</p></div></details>
+</section>
+<section class="step" id="step-5" aria-labelledby="heading-5" hidden>
+<div class="step-top"><span>第 05 步 / 06</span></div>
+<h2 id="heading-5" tabindex="-1">Unity导入测试</h2><p class="lead">连接正确的工程，在独立场景里看效果。</p>
+<div class="user-tasks"><ul>
+<li>打开指定 Unity 工程，保存正在编辑的内容，并开启 Unity Skills。</li>
+<li>需要时提供 Unity Skills 面板的连接信息或截图；软件或技能缺失时请 Agent 说明准备方式。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-5" disabled>复制给 Agent</button></div>
+<p class="feedback" id="feedback-5" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-5">请手动复制下方已选文字</label><textarea id="fallback-5" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-5">Blender 认可版本和 Unity 测试授权已经明确，目标工程已打开。请通过 Unity Skills 核对工程后，在独立目录和新测试场景中验证。请展示与认可版本对应的视角；连接、权限或工程身份异常时停止，不绕过 Unity Skills。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>只通过 Unity Skills 连接，核对实际工程名称、位置和操作权限。</li>
+<li>导入新目录，新建测试场景；不修改业务场景或覆盖旧资源。</li>
+<li>检查大小、位置、全部材质和同角度画面，再检查目标环境下的运行情况。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>目标工程正确，测试场景可打开，提供 Unity 对比图、已知差异及未测试项。</li>
+</ul><h3>不通过怎么办</h3><p>连接错误或权限不足就暂停，不改用其他方式。Unity 内问题修复后重测；需修改模型或材质则返回第03步，并重新经过第04步确认。</p></div></details>
+</section>
+<section class="step gate-step" id="step-6" aria-labelledby="heading-6" hidden>
+<div class="step-top"><span>第 06 步 / 06</span><span class="gate-tag">看图确认</span></div>
+<h2 id="heading-6" tabindex="-1">确认与交付</h2><p class="lead">第二个确认点：效果通过，文件也要完整。</p>
+<div class="user-tasks"><ul>
+<li>检查尺寸、位置、人物文字、玻璃金属，有无粉色、全黑、透明异常或贴图丢失。</li>
+<li>确认 Unity 指定版本的画面，以及接受哪些差异；运行性能与画面分开判断。</li>
+</ul></div>
+<div class="actions"><button type="button" data-copy="prompt-6" disabled>复制通过回复</button><button type="button" class="secondary" data-copy="changes-6" disabled>复制修改意见</button></div>
+<p class="feedback" id="feedback-6" role="status" aria-live="polite"></p>
+<div class="copy-fallback" hidden><label for="fallback-6">请手动复制下方已选文字</label><textarea id="fallback-6" readonly rows="5"></textarea></div>
+<details class="disclosure"><summary>查看完整话术</summary><div><blockquote id="prompt-6">我确认 Unity 测试场景的【版本名称】画面通过。请保存并重新打开检查，整理完整文件、对比图、已知差异和未测试设备。发现变化先修复并重新给我确认；本次不授权替换正式场景里的旧模型。</blockquote><h3>修改意见</h3><blockquote id="changes-6">Unity 测试场景的【版本名称】暂不通过。问题在【截图和位置】，表现为【现象】，我希望【具体效果】。请先定位原因；若需修改 Blender 模型或材质，返回第03步并重新经过第04步确认。不要修改正式场景，括号内容由我补齐。</blockquote></div></details>
+<details class="disclosure"><summary>Agent 怎么做 · 完成标准 · 遇到问题</summary><div><h3>Agent会做什么</h3><ul>
+<li>保存并重新打开测试场景，检查层级、材质和资源仍完整。</li>
+<li>整理可编辑工程、导出模型、测试场景及配套资源、对比图和恢复说明。</li>
+<li>列明目标设备是否实际测试；没有测试就明确写“未测试”。</li>
+</ul><h3>怎样算完成</h3><ul>
+<li>Unity 指定版本获您确认，保存重开正常，交付文件齐全；未完成项与接受的例外清楚。</li>
+</ul><h3>不通过怎么办</h3><p>Unity 画面或重开检查异常返回第05步；需改 Blender 则返回第03步并重新确认。测试通过不自动授权替换正式场景。</p></div></details>
+</section></div>
+<div class="step-controls"><button id="previous" type="button" disabled>← 上一步</button><span id="view-position" aria-live="polite">正在查看 1 / 6</span><button id="next" type="button" disabled>下一步 →</button></div>
+<details class="supplement"><summary>使用说明、常见问题与完整执行要求</summary><div class="supplement-body"><div><p>把场景交给 Agent，把效果确认留给你。</p>
+<p>美术人员负责准备素材、说明要求、看图确认；Agent 负责检查、处理、出图和交付。先完成 Blender 迁移优化，经您确认后，再通过 Unity Skills 导入指定 Unity 工程进行测试。</p>
+<p>这是协作指南，不是自动转换面板。网页一次只显示一步，不会上传文件、连接软件或替您批准任务；切换步骤和复制文字都不代表实际执行、效果通过或操作授权。</p></div><details class="extra"><summary>最终会拿到什么<span aria-hidden="true">＋</span></summary><div><ul>
+<li>未优化 Blender 版本：用于对照和恢复。</li>
+<li>已确认的 Blender 优化工程：用于继续编辑。</li>
+<li>经过检查的导出模型：用于导入。</li>
+<li>Unity 测试场景及其配套资源：说明所在工程和打开方式，不只给缺资源的场景文件。</li>
+<li>同角度对比图、已知差异、未测试项和恢复说明。</li>
+</ul></div></details><details class="extra"><summary>常见问题<span aria-hidden="true">＋</span></summary><div><h3>只有一个.max文件可以开始吗</h3>
+<p>可以先检查。但场景可能缺少贴图或插件；缺什么先列出来，不承诺仅凭这个文件就能完整还原。</p>
+<h3>点击下一步就会自动开始吗</h3>
+<p>不会。上一步、下一步和顶部导航只切换阅读内容；复制按钮只复制话术。页面不保存完成进度、不发送给 Agent，也不读取项目状态；请先补齐话术中的版本等信息，再自行发送给 Agent。</p>
+<h3>我需要会编程吗</h3>
+<p>不需要。把对应步骤的话术和素材发给 Agent，您负责明确效果要求和看图确认；技术配置由 Agent 处理。</p>
+<h3>Unity Skills连接不上怎么办</h3>
+<p>暂停并核对工程、服务与权限。不得换工程或绕过 Unity Skills。当前工具包不附带该软件或技能的安装包。</p></div></details><details class="extra"><summary>Agent执行底线<span aria-hidden="true">＋</span></summary><div><ul>
+<li>这份 Markdown 是六步内容依据，HTML 是同内容的阅读版。可独立阅读本文理解需求；执行前还要遵守项目 AGENTS.md，阅读现有 README、快速开始、脚本适用范围和相应模块说明。</li>
+<li>当前通用自动入口只实现安全审计，不把完整流程描述成任意场景的一键转换能力；转换需根据素材与软件能力适配。</li>
+<li>操作前核实源资产、资源目录、软件版本、目标设备、允许近似范围和质量预算。未知信息询问用户，不从其他案例推断授权。</li>
+<li>保留源 .max、未优化母版、优化版和导出版；固定开启 Safe Scene，不覆盖原件、不修改用户正在编辑的实例。</li>
+<li>没有用户对指定 Blender 版本的确认、Unity 阶段许可和导出检查通过，不连接 Unity。页面切步或复制操作、口头含糊评价或历史报告都不能替代这三个条件。</li>
+<li>Unity 阶段读取实际可用的 Unity Skills 说明，通过其连接发现与检查流程核对工程、操作模式、权限和未保存状态。参数和技能名以真实服务为准，受限时停下，不绕过服务、不手改场景文件规避限制。</li>
+<li>只导入独立资源目录和新测试场景。不得擅自修复无关业务依赖、替换正式资产、安装插件、发布或清理旧文件。</li>
+<li>确认记录关联版本、文件路径与SHA256、截图及用户确认内容。输入变化或模型材质修改后，重新验证受影响阶段；不要沿用旧截图。</li>
+<li>视觉、结构、保存重开、目标设备性能分别报告。截图非空或脚本成功不能代替效果验收，未执行的项目写“未执行”。</li>
+<li>出错时保留日志和产物，先查原因，不盲目重复运行。需要扩大修改范围时，重新取得用户确认。</li>
+</ul></div></details></div></details>
+</main>
+<footer><span>本页只指导操作，不会控制软件。</span><span>切换步骤或复制文字，不代表验收与授权。</span></footer>
+</div>
+<script>
+"use strict";
+(() => {
+  const panels = Array.from(document.querySelectorAll('.step'));
+  const navigation = Array.from(document.querySelectorAll('button[data-go]'));
+  const previous = document.getElementById('previous');
+  const next = document.getElementById('next');
+  let current = 1;
+  function showStep(number, focus = false) {
+    if (!Number.isInteger(number) || number < 1 || number > 6) return;
+    current = number;
+    panels.forEach((panel, index) => {
+      panel.hidden = index + 1 !== current;
+      if (panel.hidden) panel.querySelectorAll('details').forEach(detail => { detail.open = false; });
+    });
+    navigation.forEach(button => {
+      if (Number(button.dataset.go) === current) button.setAttribute('aria-current', 'step');
+      else button.removeAttribute('aria-current');
+    });
+    previous.disabled = current === 1;
+    next.disabled = current === 6;
+    document.getElementById('view-position').textContent = '正在查看 ' + current + ' / 6';
+    if (focus) document.getElementById('heading-' + current).focus();
+  }
+  function fromHash() {
+    const match = /^#step-([1-6])$/.exec(location.hash);
+    showStep(match ? Number(match[1]) : 1);
+  }
+  function navigate(number) {
+    showStep(number, true);
+    const hash = '#step-' + current;
+    if (location.hash !== hash) location.hash = hash;
+  }
+  navigation.forEach(button => {
+    button.disabled = false;
+    button.addEventListener('click', () => navigate(Number(button.dataset.go)));
+  });
+  previous.addEventListener('click', () => navigate(current - 1));
+  next.addEventListener('click', () => navigate(current + 1));
+  window.addEventListener('hashchange', fromHash);
+  document.querySelectorAll('button[data-copy]').forEach(button => {
+    button.disabled = false;
+    button.addEventListener('click', async () => {
+      const panel = button.closest('.step');
+      const feedback = panel.querySelector('.feedback');
+      const fallback = panel.querySelector('.copy-fallback');
+      const value = document.getElementById(button.dataset.copy).textContent.trim();
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('手动复制');
+        await navigator.clipboard.writeText(value);
+        fallback.hidden = true;
+        feedback.textContent = '已复制，请补齐其中的信息后再发给 Agent。';
+      } catch (_) {
+        fallback.hidden = false;
+        const textarea = fallback.querySelector('textarea');
+        textarea.value = value; textarea.focus(); textarea.select();
+        feedback.textContent = '未能自动复制，已选中文字，请手动复制。';
+      }
+    });
+  });
+  fromHash();
+})();
+</script>
+</body>
+</html>

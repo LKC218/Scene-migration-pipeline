@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="source-sha256" content="__SOURCE_HASH__">
+<title>__TITLE__</title>
+<style>
+:root{--paper:#f7f6f1;--ink:#243b30;--muted:#58685d;--line:#d9dfd4;--accent:#875518;--gold:#fbf1dd}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 "Microsoft YaHei","PingFang SC",sans-serif}
+button,textarea{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{cursor:default;opacity:.4}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:3px solid #a57937;outline-offset:4px}
+.wrap{max-width:1020px;margin:auto;padding:0 28px}
+header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 0;color:var(--muted);font-size:13px}
+header strong{color:var(--ink);letter-spacing:1px;font-size:14px}
+h1{font-family:"Noto Serif CJK SC","SimSun",serif;font-size:36px;font-weight:600;line-height:1.4;margin:20px 0 6px}
+.subtitle{color:var(--muted);margin:0 0 28px}
+.route{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:26px}
+.route button{background:transparent;text-align:left;border:0;border-bottom:2px solid var(--line);border-radius:0;padding:12px 9px;color:var(--muted);font-size:13px;min-height:68px}
+.route span{display:block;font-family:Georgia,serif;font-size:14px}
+.route button[aria-current="step"]{border-color:var(--ink);background:#eaf0e5;color:var(--ink)}
+.route button:hover:not(:disabled){background:#eef1e9}
+.step{background:#fffefa;border:1px solid var(--line);border-radius:12px;padding:28px 40px 22px}
+.step-top{display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)}
+.gate-tag{background:var(--gold);color:var(--accent);border-radius:5px;padding:2px 10px}
+h2{font-size:28px;line-height:1.5;font-weight:600;margin:8px 0 3px}h2:focus{outline:none}
+.lead{font-size:14px;color:var(--muted);margin:0 0 22px}
+.user-tasks ul{list-style:none;padding:0;margin:0 0 26px;max-width:790px}
+.user-tasks li{position:relative;padding-left:23px;margin:12px 0}
+.user-tasks li:before{content:"•";position:absolute;left:0;color:#77916c}
+.gate-step .user-tasks li:before{content:"□";color:var(--accent)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.actions button{border:1px solid var(--ink);background:var(--ink);color:#fffefa;border-radius:6px;padding:10px 20px;min-height:44px;font-size:14px;font-weight:600}
+.actions button:hover:not(:disabled){background:#405b49}
+.actions .secondary{background:transparent;color:var(--ink);border-color:#bcc8b8}
+.actions .secondary:hover:not(:disabled){background:#eef1e9}
+.feedback{font-size:13px;color:var(--accent);margin:10px 0}
+.feedback:empty{display:none}
+.disclosure{border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+summary{cursor:pointer;padding:13px 0;touch-action:manipulation}
+.disclosure>div{padding:0 0 15px;font-size:14px}.disclosure h3{font-size:14px;color:var(--ink);margin:16px 0 5px}
+.disclosure p{margin:8px 0}.disclosure ul{padding-left:20px}.disclosure li{margin:7px 0}
+blockquote{margin:6px 0;line-height:1.9}
+.copy-fallback{margin:14px 0}.copy-fallback label{font-size:13px;display:block}
+textarea{width:100%;padding:12px;border:1px solid var(--line);background:var(--paper);border-radius:6px;color:var(--ink);resize:vertical}
+.step-controls{display:flex;align-items:center;justify-content:space-between;padding:20px 4px;gap:15px}
+.step-controls button{border:0;background:transparent;color:var(--ink);padding:10px 12px;min-height:44px;font-size:14px}
+.step-controls button:hover:not(:disabled){background:#eaf0e5;border-radius:6px}
+#view-position{font-size:12px;color:var(--muted)}
+.supplement{margin:7px 0 25px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.supplement>.supplement-body{padding:0 8px 10px}
+.extra{border-top:1px solid var(--line)}.extra>summary{display:flex;justify-content:space-between}
+.extra div{font-size:14px}.extra h3{font-size:14px;color:var(--ink)}
+footer{padding:0 0 28px;display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted)}
+[hidden]{display:none!important}
+@media(max-width:650px){
+.wrap{padding:0 18px}header{padding:18px 0;align-items:flex-start}header a{font-size:12px}
+h1{font-size:28px;margin-top:12px}.subtitle{font-size:14px;margin-bottom:18px}
+.route{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:18px}
+.route button{font-size:12px;padding:9px 7px;min-height:60px}
+.step{padding:22px 20px 16px}h2{font-size:24px}.user-tasks li{font-size:15px}
+.actions button{padding:10px 14px}.step-controls{padding:12px 0}
+footer{flex-direction:column;gap:5px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{.route,.actions,.step-controls,.copy-fallback,header a{display:none!important}.step[hidden]{display:block!important}.step{break-inside:avoid;margin:15px 0}.disclosure>div,.supplement-body,.extra>div{display:block!important}body{background:white}.wrap{max-width:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><strong>场景迁移 · 美术协作指南</strong><a href="__MD_NAME__" download>给 Agent 的完整 Markdown ↗</a></header>
+<main>
+<h1>一次只看一步。</h1>
+<p class="subtitle">先在 Blender 确认效果，再到 Unity 测试。</p>
+<nav class="route" aria-label="选择要查看的步骤">__NAV__</nav>
+<noscript><style>.step[hidden]{display:block!important}.route,.step-controls{display:none}</style><p>脚本未启用，以下按顺序显示六步。展开话术后可手动选中复制。</p></noscript>
+<div id="steps">__STEPS__</div>
+<div class="step-controls"><button id="previous" type="button" disabled>← 上一步</button><span id="view-position" aria-live="polite">正在查看 1 / 6</span><button id="next" type="button" disabled>下一步 →</button></div>
+<details class="supplement"><summary>使用说明、常见问题与完整执行要求</summary><div class="supplement-body"><div>__INTRO__</div>__EXTRAS__</div></details>
+</main>
+<footer><span>本页只指导操作，不会控制软件。</span><span>切换步骤或复制文字，不代表验收与授权。</span></footer>
+</div>
+<script>
+"use strict";
+(() => {
+  const panels = Array.from(document.querySelectorAll('.step'));
+  const navigation = Array.from(document.querySelectorAll('button[data-go]'));
+  const previous = document.getElementById('previous');
+  const next = document.getElementById('next');
+  let current = 1;
+  function showStep(number, focus = false) {
+    if (!Number.isInteger(number) || number < 1 || number > 6) return;
+    current = number;
+    panels.forEach((panel, index) => {
+      panel.hidden = index + 1 !== current;
+      if (panel.hidden) panel.querySelectorAll('details').forEach(detail => { detail.open = false; });
+    });
+    navigation.forEach(button => {
+      if (Number(button.dataset.go) === current) button.setAttribute('aria-current', 'step');
+      else button.removeAttribute('aria-current');
+    });
+    previous.disabled = current === 1;
+    next.disabled = current === 6;
+    document.getElementById('view-position').textContent = '正在查看 ' + current + ' / 6';
+    if (focus) document.getElementById('heading-' + current).focus();
+  }
+  function fromHash() {
+    const match = /^#step-([1-6])$/.exec(location.hash);
+    showStep(match ? Number(match[1]) : 1);
+  }
+  function navigate(number) {
+    showStep(number, true);
+    const hash = '#step-' + current;
+    if (location.hash !== hash) location.hash = hash;
+  }
+  navigation.forEach(button => {
+    button.disabled = false;
+    button.addEventListener('click', () => navigate(Number(button.dataset.go)));
+  });
+  previous.addEventListener('click', () => navigate(current - 1));
+  next.addEventListener('click', () => navigate(current + 1));
+  window.addEventListener('hashchange', fromHash);
+  document.querySelectorAll('button[data-copy]').forEach(button => {
+    button.disabled = false;
+    button.addEventListener('click', async () => {
+      const panel = button.closest('.step');
+      const feedback = panel.querySelector('.feedback');
+      const fallback = panel.querySelector('.copy-fallback');
+      const value = document.getElementById(button.dataset.copy).textContent.trim();
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('手动复制');
+        await navigator.clipboard.writeText(value);
+        fallback.hidden = true;
+        feedback.textContent = '已复制，请补齐其中的信息后再发给 Agent。';
+      } catch (_) {
+        fallback.hidden = false;
+        const textarea = fallback.querySelector('textarea');
+        textarea.value = value; textarea.focus(); textarea.select();
+        feedback.textContent = '未能自动复制，已选中文字，请手动复制。';
+      }
+    });
+  });
+  fromHash();
+})();
+</script>
+</body>
+</html>

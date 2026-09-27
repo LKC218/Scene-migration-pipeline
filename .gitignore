@@ -1,0 +1,36 @@
+# 用户资产和执行输出仅在本地保存
+/源工程/
+/input/
+/assets-local/
+/output/
+/dist/
+*.max
+*.blend
+*.blend[0-9]*
+*.fbx
+*.glb
+*.gltf
+*.zip
+
+# 本机环境、缓存和凭据
+__pycache__/
+*.py[cod]
+node_modules/
+.venv/
+venv/
+.pytest_cache/
+tmp/
+*.log
+.env
+.env.*
+!.env.example
+*.local.json
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+
+# 案例、历史资料及备份不属于通用发布范围
+/docs/案例记录/
+/docs/历史归档/
+/docs/参考图/

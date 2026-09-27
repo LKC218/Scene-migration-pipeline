@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "project_name": "新场景",
+  "scene": "",
+  "max_batch": "",
+  "blender": "",
+  "output_dir": "output/过程资产/新场景-首次审计",
+  "protect": [],
+  "material_details": true,
+  "plugin_environment": {}
+}

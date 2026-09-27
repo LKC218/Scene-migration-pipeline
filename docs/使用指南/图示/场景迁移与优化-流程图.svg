@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="2040" viewBox="0 0 1360 2040" role="img" aria-labelledby="title description" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+<title id="title">场景迁移与优化：美术操作流程</title>
+<desc id="description">提供素材，检查与备份，迁入Blender并保留未优化版本，优化后由美术确认，再检查导出文件。通过Unity Skills连接指定工程，导入独立目录并新建场景测试，经美术确认后保存重开并交付。效果不通过则返回对应阶段；连接异常暂停，不绕过Unity Skills。</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#55718f"/></marker>
+<marker id="return" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L8 4 L0 8 Z" fill="#ac6554"/></marker>
+</defs>
+<rect x="0" y="0" width="1360" height="2040" rx="0" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+<text x="70" y="84" font-size="43" fill="#163b62" font-weight="600" text-anchor="start">场景迁移与优化</text>
+<text x="70" y="131" font-size="26" fill="#203044" font-weight="400" text-anchor="start">美术人员操作总览  ·  先验收 Blender，再通过 Unity Skills 测试</text>
+<rect x="70" y="173" width="330" height="48" rx="12" fill="#f0f3f7" stroke="#f0f3f7" stroke-width="2"/>
+<text x="90" y="205" font-size="22" fill="#203044" font-weight="400" text-anchor="start">美术：提供素材 · 看图确认</text>
+<rect x="425" y="173" width="370" height="48" rx="12" fill="#edf5ff" stroke="#edf5ff" stroke-width="2"/>
+<text x="445" y="205" font-size="22" fill="#203044" font-weight="400" text-anchor="start">Agent：检查 · 处理 · 对比出图</text>
+<rect x="820" y="173" width="440" height="48" rx="12" fill="#fff3dd" stroke="#fff3dd" stroke-width="2"/>
+<text x="840" y="205" font-size="20" fill="#203044" font-weight="400" text-anchor="start">橙色确认点：未经确认不进入下一阶段</text>
+<text x="55" y="301" font-size="24" fill="#35618e" font-weight="600" text-anchor="start">阶段一</text>
+<text x="55" y="338" font-size="30" fill="#163b62" font-weight="600" text-anchor="start">Blender</text>
+<text x="55" y="376" font-size="21" fill="#526479" font-weight="400" text-anchor="start">保留原效果</text>
+<text x="55" y="407" font-size="21" fill="#526479" font-weight="400" text-anchor="start">再做优化</text>
+<rect x="350" y="270" width="620" height="95" rx="18" fill="#f0f3f7" stroke="#9baabc" stroke-width="2"/>
+<text x="378" y="307" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">准备</text>
+<text x="660" y="309" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">提供场景和要求</text>
+<text x="660" y="343" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">美术：.max、贴图、参考图、用途和重要细节</text>
+<rect x="350" y="410" width="620" height="95" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="447" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">01</text>
+<text x="660" y="449" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">检查素材，保留原件</text>
+<text x="660" y="483" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">Agent：素材不全或软件不可用时，先暂停补齐</text>
+<rect x="350" y="550" width="620" height="95" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="587" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">02</text>
+<text x="660" y="589" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">迁入 Blender，先核对原效果</text>
+<text x="660" y="623" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">Agent：保留未优化版本，先修复迁移问题</text>
+<rect x="350" y="690" width="620" height="95" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="727" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">03</text>
+<text x="660" y="729" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">优化材质、减少面数、整理名称</text>
+<text x="660" y="763" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">Agent：保留重要轮廓和近景细节，提供对比图</text>
+<rect x="350" y="835" width="620" height="105" rx="18" fill="#fff3dd" stroke="#d69b38" stroke-width="2"/>
+<text x="378" y="872" font-size="21" fill="#89590f" font-weight="600" text-anchor="start">确认1</text>
+<text x="660" y="874" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">美术确认 Blender 效果</text>
+<text x="660" y="908" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">通过后，明确同意进入指定 Unity 工程测试</text>
+<rect x="350" y="995" width="620" height="95" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="1032" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">05</text>
+<text x="660" y="1034" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">导出模型，重新打开检查</text>
+<text x="660" y="1068" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">异常先修复；外观有变化时重新确认</text>
+<path d="M660 365 V403" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M660 505 V543" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M660 645 V683" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M660 785 V828" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M660 940 V988" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="680" y="979" font-size="20" fill="#89590f" font-weight="400" text-anchor="start">通过</text>
+<rect x="1040" y="825" width="250" height="100" rx="18" fill="#fff7f4" stroke="#d9aba0" stroke-width="2"/>
+<text x="1165" y="862" font-size="20" fill="#8f4132" font-weight="500" text-anchor="middle">不通过：指出问题位置</text>
+<text x="1165" y="895" font-size="22" fill="#8f4132" font-weight="500" text-anchor="middle">调整后重新出图</text>
+<path d="M970 887 H1034" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<text x="985" y="868" font-size="19" fill="#8f4132" font-weight="400" text-anchor="start">退回</text>
+<path d="M1165 825 V737 H979" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<text x="55" y="1141" font-size="24" fill="#163b62" font-weight="600" text-anchor="start">阶段二</text>
+<text x="55" y="1178" font-size="27" fill="#163b62" font-weight="600" text-anchor="start">Unity</text>
+<text x="55" y="1214" font-size="24" fill="#163b62" font-weight="600" text-anchor="start">测试</text>
+<path d="M660 1090 V1163" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="350" y="1170" width="620" height="105" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="1207" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">06</text>
+<text x="660" y="1209" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">通过 Unity Skills 连接并核对工程</text>
+<text x="660" y="1243" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">美术打开工程并开启服务；Agent 核实目标与权限</text>
+<rect x="1040" y="1170" width="250" height="105" rx="18" fill="#fff7f4" stroke="#d9aba0" stroke-width="2"/>
+<text x="1165" y="1211" font-size="20" fill="#8f4132" font-weight="500" text-anchor="middle">连接或权限异常：暂停</text>
+<text x="1165" y="1245" font-size="20" fill="#8f4132" font-weight="400" text-anchor="middle">不改用其他方式操作</text>
+<path d="M970 1222 H1034" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<rect x="350" y="1330" width="620" height="105" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="1367" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">07</text>
+<text x="660" y="1369" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">导入独立目录，新建场景测试</text>
+<text x="660" y="1403" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">Agent：检查画面与运行情况，不改正式场景</text>
+<path d="M660 1275 V1323" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="350" y="1490" width="620" height="105" rx="18" fill="#fff3dd" stroke="#d69b38" stroke-width="2"/>
+<text x="378" y="1527" font-size="21" fill="#89590f" font-weight="600" text-anchor="start">确认2</text>
+<text x="660" y="1529" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">美术确认 Unity 效果</text>
+<text x="660" y="1563" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">未测试的设备仍标注“未测试”</text>
+<path d="M660 1435 V1483" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1040" y="1490" width="250" height="120" rx="18" fill="#fff7f4" stroke="#d9aba0" stroke-width="2"/>
+<text x="1165" y="1532" font-size="21" fill="#8f4132" font-weight="500" text-anchor="middle">不通过：先定位原因</text>
+<text x="1165" y="1567" font-size="21" fill="#8f4132" font-weight="400" text-anchor="middle">Unity 内调整后</text>
+<text x="1165" y="1595" font-size="21" fill="#8f4132" font-weight="400" text-anchor="middle">重新提供对比图</text>
+<path d="M970 1542 H1034" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<path d="M1165 1490 V1382 H979" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<rect x="45" y="1490" width="240" height="120" rx="18" fill="#fff7f4" stroke="#d9aba0" stroke-width="2"/>
+<text x="165" y="1531" font-size="21" fill="#8f4132" font-weight="500" text-anchor="middle">若需改模型或材质</text>
+<text x="165" y="1567" font-size="22" fill="#8f4132" font-weight="500" text-anchor="middle">返回步骤 03</text>
+<text x="165" y="1595" font-size="20" fill="#8f4132" font-weight="400" text-anchor="middle">重新确认 Blender</text>
+<path d="M350 1542 H292" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<path d="M165 1490 V737 H341" fill="none" stroke="#ac6554" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#return)"/>
+<path d="M660 1595 V1703" fill="none" stroke="#55718f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="680" y="1658" font-size="20" fill="#89590f" font-weight="400" text-anchor="start">通过</text>
+<rect x="350" y="1710" width="620" height="105" rx="18" fill="#edf5ff" stroke="#96b9dd" stroke-width="2"/>
+<text x="378" y="1747" font-size="21" fill="#35618e" font-weight="600" text-anchor="start">08</text>
+<text x="660" y="1749" font-size="27" fill="#203044" font-weight="600" text-anchor="middle">保存、重新打开检查，整理交付</text>
+<text x="660" y="1783" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">异常先修复；列清文件、已知差异与未测试项</text>
+<text x="660" y="1857" font-size="21" fill="#526479" font-weight="400" text-anchor="middle">重开检查出现外观变化时，重新提交相应阶段确认</text>
+<line x1="70" y1="1895" x2="1290" y2="1895" stroke="#d6e0eb" stroke-width="2"/>
+<text x="70" y="1940" font-size="23" fill="#163b62" font-weight="600" text-anchor="start">保留原文件</text>
+<text x="430" y="1940" font-size="23" fill="#163b62" font-weight="600" text-anchor="start">不覆盖旧模型和正式场景</text>
+<text x="940" y="1940" font-size="23" fill="#163b62" font-weight="600" text-anchor="start">正式替换另行确认</text>
+<text x="70" y="1994" font-size="22" fill="#526479" font-weight="400" text-anchor="start">这是人与 Agent 协作的流程，不代表所有场景已能一键自动转换。</text>
+</svg>
