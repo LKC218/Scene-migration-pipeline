@@ -28,7 +28,7 @@ class ConfigTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="工具包配置测试-")
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         (self.root / "输入").mkdir()
         (self.root / "输入/示例.max").touch()
         (self.root / "软件").mkdir()
@@ -163,7 +163,7 @@ class ShareTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="工具包分享测试-")
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name) / "独立 中文目录"
+        self.root = Path(self.temp.name).resolve() / "独立 中文目录"
         self.root.mkdir()
         self.contents = SHARE.read_files(ROOT)
         for name, raw in self.contents.items():

@@ -32,7 +32,7 @@ class GuardTests(unittest.TestCase):
         self.env = patch.dict(os.environ, {"GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"})
         self.env.start()
         self.addCleanup(self.env.stop)
-        self.repo = Path(self.temp.name)
+        self.repo = Path(self.temp.name).resolve()
         self.g("init", "-b", "main")
         self.g("config", "user.name", "测试用户")
         self.g("config", "user.email", "test@example.invalid")
