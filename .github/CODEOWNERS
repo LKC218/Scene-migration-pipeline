@@ -1,0 +1,12 @@
+# 规则、钩子和工作流修改必须由管理员审核。
+/.github/ @LKC218
+/.githooks/ @LKC218
+/configs/仓库提交白名单.json @LKC218
+/configs/分享白名单.json @LKC218
+/.gitignore @LKC218
+/.gitattributes @LKC218
+/AGENTS.md @LKC218
+/scripts/协作/ @LKC218
+/scripts/通用/分享工具包.py @LKC218
+/scripts/通用/生成六步指南.py @LKC218
+/scripts/验证/测试提交检查.py @LKC218

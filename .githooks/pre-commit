@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+root="$(git rev-parse --show-toplevel)"
+python_bin="$(git config --local --get sceneGuard.python)" || { echo '请先运行协作环境初始化。' >&2; exit 1; }
+exec "$python_bin" -X utf8 -B "$root/scripts/协作/检查提交范围.py" index

@@ -1,8 +1,6 @@
 {
   "schema_version": 1,
   "files": [
-    "docs/执行规范/多人协作与提交规范.md",
-    "docs/模块说明/协作检查模块说明.md",
     ".gitignore",
     ".gitattributes",
     "docs/执行规范/仓库发布与资产管理.md",
@@ -40,6 +38,17 @@
     "scripts/诊断/分析材质依赖.py",
     "scripts/验证/测试通用入口.py",
     "scripts/验证/测试独立审计.py",
-    "scripts/验证/测试材质依赖.py"
+    "scripts/验证/测试材质依赖.py",
+    ".github/CODEOWNERS",
+    ".github/workflows/repository-policy.yml",
+    ".github/workflows/repository-tests.yml",
+    ".githooks/pre-commit",
+    ".githooks/pre-push",
+    "configs/仓库提交白名单.json",
+    "scripts/协作/检查提交范围.py",
+    "scripts/协作/初始化协作环境.py",
+    "scripts/验证/测试提交检查.py",
+    "docs/执行规范/多人协作与提交规范.md",
+    "docs/模块说明/协作检查模块说明.md"
   ]
 }
